@@ -13,6 +13,7 @@ coverage/
 /backend/target/
 /backend/.cargo/
 /backend/Cargo.lock
+/backend/**.db
 
 # === Frontend (Vite + TS + Tailwind) ===
 /frontend/node_modules/
