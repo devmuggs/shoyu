@@ -9,7 +9,6 @@ pub fn initialise() -> Result<()> {
     let sql_file_content =
         fs::read_to_string(sql_init_file_path).expect("Should have been able to read file");
 
-    println!("{}", &sql_file_content);
     connection.execute_batch(&sql_file_content)?;
 
     Ok(())
