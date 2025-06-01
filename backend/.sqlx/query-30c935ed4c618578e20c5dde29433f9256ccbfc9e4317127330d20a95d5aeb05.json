@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n        INSERT INTO chefs (display_name, email, password, role_id)\n        VALUES (?, ?, ?, ?)\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": []
+  },
+  "hash": "30c935ed4c618578e20c5dde29433f9256ccbfc9e4317127330d20a95d5aeb05"
+}

@@ -10,8 +10,8 @@ CREATE TABLE if NOT EXISTS currencies (
     name TEXT NOT NULL,
 
     created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')), 
-    updated_at TEXT DEFAULT NULL,
-    deleted_at TEXT DEFAULT NULL
+    updated_at INTEGER DEFAULT NULL,
+    deleted_at INTEGER DEFAULT NULL
 );
 
 -- Salary, I don't have a sexy name for this...
@@ -20,8 +20,8 @@ CREATE TABLE if NOT EXISTS salaries (
     amount REAL NOT NULL,
 
     created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')), 
-    updated_at TEXT DEFAULT NULL,
-    deleted_at TEXT DEFAULT NULL,
+    updated_at INTEGER DEFAULT NULL,
+    deleted_at INTEGER DEFAULT NULL,
 
     currency_code TEXT NOT NULL,
     chef_id INTEGER NOT NULL,
@@ -50,8 +50,8 @@ CREATE TABLE if NOT EXISTS chef_additives (
     additive_id INTEGER NOT NULL,
 
     created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')), 
-    updated_at TEXT DEFAULT NULL,
-    deleted_at TEXT DEFAULT NULL,
+    updated_at INTEGER DEFAULT NULL,
+    deleted_at INTEGER DEFAULT NULL,
 
     PRIMARY KEY (chef_id, additive_id),
     FOREIGN KEY (chef_id) REFERENCES chefs(id) ON DELETE CASCADE,
@@ -65,8 +65,8 @@ CREATE TABLE if NOT EXISTS chef_bottles (
     bottle_id INTEGER NOT NULL,
 
     created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')), 
-    updated_at TEXT DEFAULT NULL,
-    deleted_at TEXT DEFAULT NULL,
+    updated_at INTEGER DEFAULT NULL,
+    deleted_at INTEGER DEFAULT NULL,
     role_id INTEGER NOT NULL,
 
     PRIMARY KEY (chef_id, bottle_id),
@@ -82,8 +82,8 @@ CREATE TABLE if NOT EXISTS chef_splashes (
     splash_id INTEGER NOT NULL,
 
     created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')), 
-    updated_at TEXT DEFAULT NULL,
-    deleted_at TEXT DEFAULT NULL,
+    updated_at INTEGER DEFAULT NULL,
+    deleted_at INTEGER DEFAULT NULL,
 
     PRIMARY KEY (chef_id, splash_id),
     FOREIGN KEY (chef_id) REFERENCES chefs(id) ON DELETE CASCADE,
@@ -99,8 +99,8 @@ CREATE TABLE if NOT EXISTS chefs (
     "password" TEXT NOT NULL,
     
     created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')), 
-    updated_at TEXT DEFAULT NULL,
-    deleted_at TEXT DEFAULT NULL,
+    updated_at INTEGER DEFAULT NULL,
+    deleted_at INTEGER DEFAULT NULL,
 
     role_id INTEGER NOT NULL,
     FOREIGN KEY (role_id) REFERENCES system_roles(id) ON DELETE RESTRICT
@@ -112,8 +112,8 @@ CREATE TABLE if NOT EXISTS bottle_splashes (
     splash_id INTEGER NOT NULL,
 
     created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')), 
-    updated_at TEXT DEFAULT NULL,
-    deleted_at TEXT DEFAULT NULL,
+    updated_at INTEGER DEFAULT NULL,
+    deleted_at INTEGER DEFAULT NULL,
 
     PRIMARY KEY (bottle_id, splash_id),
     FOREIGN KEY (bottle_id) REFERENCES bottles(id) ON DELETE CASCADE,
@@ -127,8 +127,8 @@ CREATE TABLE if NOT EXISTS bottle_additives (
     additive_id INTEGER NOT NULL,
 
     created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')), 
-    updated_at TEXT DEFAULT NULL,
-    deleted_at TEXT DEFAULT NULL,
+    updated_at INTEGER DEFAULT NULL,
+    deleted_at INTEGER DEFAULT NULL,
 
     PRIMARY KEY (bottle_id, additive_id),
     FOREIGN KEY (bottle_id) REFERENCES bottles(id) ON DELETE CASCADE,
@@ -143,8 +143,8 @@ CREATE TABLE if NOT EXISTS bottles (
     "description" TEXT,
 
     created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')), 
-    updated_at TEXT DEFAULT NULL,
-    deleted_at TEXT DEFAULT NULL,
+    updated_at INTEGER DEFAULT NULL,
+    deleted_at INTEGER DEFAULT NULL,
 
     owner_id INTEGER NOT NULL,
     FOREIGN KEY (owner_id) REFERENCES chefs(id) ON DELETE CASCADE
@@ -156,8 +156,8 @@ CREATE TABLE if NOT EXISTS splash_additives (
     additive_id INTEGER NOT NULL,
 
     created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')), 
-    updated_at TEXT DEFAULT NULL,
-    deleted_at TEXT DEFAULT NULL,
+    updated_at INTEGER DEFAULT NULL,
+    deleted_at INTEGER DEFAULT NULL,
 
     PRIMARY KEY (splash_id, additive_id),
     FOREIGN KEY (splash_id) REFERENCES splashes(id) ON DELETE CASCADE,
@@ -172,8 +172,8 @@ CREATE TABLE if NOT EXISTS splashes (
     "description" TEXT,
 
     created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')), 
-    deleted_at TEXT DEFAULT NULL, 
-    updated_at TEXT DEFAULT NULL,
+    deleted_at INTEGER DEFAULT NULL, 
+    updated_at INTEGER DEFAULT NULL,
 
     bottle_id INTEGER NOT NULL,
     FOREIGN KEY (bottle_id) REFERENCES bottles(id) ON DELETE CASCADE
@@ -186,8 +186,8 @@ CREATE TABLE if NOT EXISTS additives (
     "description" TEXT,
     
     created_at INTEGER NOT NULL DEFAULT (strftime('%s','now')),
-    deleted_at TEXT DEFAULT NULL,
-    updated_at TEXT DEFAULT NULL,
+    deleted_at INTEGER DEFAULT NULL,
+    updated_at INTEGER DEFAULT NULL,
 
     owner_id INTEGER NOT NULL,
     FOREIGN KEY (owner_id) REFERENCES chefs(id) ON DELETE CASCADE

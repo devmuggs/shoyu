@@ -34,35 +34,27 @@ pub async fn get_chefs(pool: &SqlitePool) -> Result<Vec<Chef>, sqlx::Error> {
 }
 
 pub async fn create_chef(pool: &SqlitePool, data: CreateChefRequest) -> Result<Chef, sqlx::Error> {
-    sqlx::query!(
+    let chef = sqlx::query_as!(
+        DbChef,
         r#"
         INSERT INTO chefs (display_name, email, password, role_id)
-        VALUES (?, ?, ?, ?)
+        VALUES ($1, $2, $3, $4)
+        RETURNING 
+            chefs.id,
+            chefs.display_name, 
+            chefs.email, 
+            chefs.created_at, 
+            chefs.updated_at,
+            chefs.deleted_at,
+            chefs.role_id,
+            (
+                SELECT name FROM system_roles WHERE id = chefs.role_id
+            ) AS role_name
         "#,
         data.display_name,
         data.email,
         data.password,
         data.role_id,
-    )
-    .execute(pool)
-    .await?;
-
-    let chef = sqlx::query_as!(
-        DbChef,
-        r#"
-        SELECT 
-            chefs.id,
-            chefs.display_name,
-            chefs.email,
-            chefs.created_at,
-            chefs.updated_at,
-            chefs.deleted_at,
-            chefs.role_id,
-            system_roles.name AS role_name
-        FROM chefs
-        JOIN system_roles ON chefs.role_id = system_roles.id
-        WHERE chefs.id = last_insert_rowid()
-        "#
     )
     .fetch_one(pool)
     .await?;

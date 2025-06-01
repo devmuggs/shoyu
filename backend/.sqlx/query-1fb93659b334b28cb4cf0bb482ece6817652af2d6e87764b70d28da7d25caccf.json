@@ -1,0 +1,62 @@
+{
+  "db_name": "SQLite",
+  "query": "\n        SELECT \n            chefs.id, \n            chefs.display_name, \n            chefs.email, \n            chefs.created_at, \n            chefs.updated_at,\n            chefs.deleted_at,\n            chefs.role_id,\n            system_roles.name as role_name\n        FROM chefs\n        JOIN system_roles ON chefs.role_id = system_roles.id\n        ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "display_name",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "email",
+        "ordinal": 2,
+        "type_info": "Text"
+      },
+      {
+        "name": "created_at",
+        "ordinal": 3,
+        "type_info": "Integer"
+      },
+      {
+        "name": "updated_at",
+        "ordinal": 4,
+        "type_info": "Integer"
+      },
+      {
+        "name": "deleted_at",
+        "ordinal": 5,
+        "type_info": "Integer"
+      },
+      {
+        "name": "role_id",
+        "ordinal": 6,
+        "type_info": "Integer"
+      },
+      {
+        "name": "role_name",
+        "ordinal": 7,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "1fb93659b334b28cb4cf0bb482ece6817652af2d6e87764b70d28da7d25caccf"
+}

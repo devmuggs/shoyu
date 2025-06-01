@@ -7,8 +7,8 @@ pub struct DbChef {
     pub display_name: String,
     pub email: String,
     pub created_at: Option<i64>,
-    pub updated_at: Option<String>,
-    pub deleted_at: Option<String>,
+    pub updated_at: Option<i64>,
+    pub deleted_at: Option<i64>,
     pub role_id: Option<i64>,
     pub role_name: String,
 }
@@ -19,8 +19,8 @@ pub struct Chef {
     pub display_name: String,
     pub email: String,
     pub created_at: Option<i64>,
-    pub updated_at: Option<String>,
-    pub deleted_at: Option<String>,
+    pub updated_at: Option<i64>,
+    pub deleted_at: Option<i64>,
     pub role: String,
 }
 
