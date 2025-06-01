@@ -192,3 +192,10 @@ CREATE TABLE if NOT EXISTS additives (
     owner_id INTEGER NOT NULL,
     FOREIGN KEY (owner_id) REFERENCES chefs(id) ON DELETE CASCADE
 );
+
+-- Upsert system roles
+INSERT INTO system_roles (name) VALUES ('ADMIN')
+ON CONFLICT(name) DO UPDATE SET name=excluded.name;
+
+INSERT INTO system_roles (name) VALUES ('USER')
+ON CONFLICT(name) DO UPDATE SET name=excluded.name;
