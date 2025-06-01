@@ -5,12 +5,30 @@ import "./index.css";
 import router from "./routes";
 
 import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./lib/queryClient.ts";
+import MainLayout from "./components/layouts/MainLayout";
+import { ThemeProvider, ThemeToggle } from "./components/theme-provider";
+import { LogoutButton } from "./components/users";
+import { queryClient } from "./lib/queryClient";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<QueryClientProvider client={queryClient}>
-			<RouterProvider router={router} />
+			<MainLayout
+				header={
+					<ul className="flex gap-2">
+						<li>
+							<ThemeToggle />
+						</li>
+						<li>
+							<LogoutButton />
+						</li>
+					</ul>
+				}
+			>
+				<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+					<RouterProvider router={router} />
+				</ThemeProvider>
+			</MainLayout>
 		</QueryClientProvider>
 	</StrictMode>
 );
