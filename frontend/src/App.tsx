@@ -1,8 +1,15 @@
+import "./App.css";
+import MainLayout from "./components/layouts/MainLayout";
+
 function App() {
 	return (
-		<div className="w-screen h-screen flex items-center justify-center bg-neutral-800 text-white">
-			test content
-		</div>
+		<MainLayout
+			header={undefined}
+			sidebar={undefined}
+			className="bg-neutral-900 w-screen h-screen overflow-y-auto overflow-x-hidden"
+		>
+			welcome to shoyu
+		</MainLayout>
 	);
 }
 
