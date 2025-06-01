@@ -1,8 +1,10 @@
 mod db;
 pub mod features;
 
-use axum::{routing::get, Router};
+use axum::{http::Method, routing::get, Router};
 use features::chefs::router::chef_router;
+use tower_http::cors::{Any, CorsLayer};
+use tracing_subscriber::layer;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -10,9 +12,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let pool = db::initialise().await?; // Call synchronously here and handle error properly
 
+    let cors = CorsLayer::new()
+        .allow_origin(Any)
+        .allow_methods([Method::GET, Method::POST, Method::PUT, Method::DELETE])
+        .allow_headers(Any);
+
     let base_router = Router::new()
         .route("/hello", get(|| async { "Hello World! " }))
-        .nest("/chefs", chef_router(pool.clone()));
+        .nest("/chefs", chef_router(pool.clone()))
+        .layer(cors);
+
     let app = Router::new().nest("/api/v1", base_router);
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await?;
