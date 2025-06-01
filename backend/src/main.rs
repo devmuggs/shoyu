@@ -1,7 +1,5 @@
 mod db;
-mod features {
-    pub mod chefs;
-}
+pub mod features;
 
 use axum::{routing::get, Router};
 use features::chefs::router::chef_router;
@@ -9,7 +7,8 @@ use features::chefs::router::chef_router;
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     tracing_subscriber::fmt::init();
-    db::initialise()?; // Call synchronously here and handle error properly
+
+    db::initialise().await?; // Call synchronously here and handle error properly
 
     let base_router = Router::new()
         .route("/hello", get(|| async { "Hello World! " }))

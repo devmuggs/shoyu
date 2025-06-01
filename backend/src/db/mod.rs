@@ -1,13 +1,23 @@
-use rusqlite::{Connection, Result};
-use std::fs;
+use config::init_pool;
+use sqlx::SqlitePool;
+use std::error::Error;
 
-pub fn initialise() -> Result<(), Box<dyn std::error::Error>> {
-    let connection = Connection::open("shoyu.db")?;
+mod config;
 
-    let sql_init_file_path = "./migrations/init.sql";
-    let sql_file_content = fs::read_to_string(sql_init_file_path)?;
+pub async fn initialise() -> Result<SqlitePool, Box<dyn Error>> {
+    let pool = init_pool(&config::DbConfig::default()).await?;
 
-    connection.execute_batch(&sql_file_content)?;
+    let sql_init_file_path = "./migrations/0001_create_initial_tables.sql";
+    let sql_file_content = tokio::fs::read_to_string(sql_init_file_path).await?;
 
-    Ok(())
+    for statement in sql_file_content.split(";") {
+        let statement = statement.trim();
+        if statement.is_empty() {
+            continue;
+        };
+
+        sqlx::query(statement).execute(&pool).await?;
+    }
+
+    Ok(pool)
 }
